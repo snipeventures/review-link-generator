@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { Copy } from "lucide-react";
+import PlacesAutocomplete from "@/components/PlacesAutocomplete";
 
 const Index = () => {
   const [placeId, setPlaceId] = useState("");
+  const [businessName, setBusinessName] = useState("");
   
   const generateReviewLink = () => {
     return `https://search.google.com/local/writereview?place_id=${placeId}`;
@@ -13,7 +14,7 @@ const Index = () => {
 
   const copyToClipboard = async () => {
     if (!placeId) {
-      toast.error("Please enter a Place ID first");
+      toast.error("Please search and select your business first");
       return;
     }
     
@@ -25,6 +26,11 @@ const Index = () => {
       console.error("Failed to copy:", err);
       toast.error("Failed to copy link");
     }
+  };
+
+  const handlePlaceSelected = (newPlaceId: string) => {
+    console.log('Setting new place ID:', newPlaceId);
+    setPlaceId(newPlaceId);
   };
 
   return (
@@ -42,28 +48,13 @@ const Index = () => {
         <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
           <div className="space-y-6">
             <div>
-              <label htmlFor="placeId" className="block text-sm font-medium text-gray-700 mb-2">
-                Google Place ID
+              <label htmlFor="placeSearch" className="block text-sm font-medium text-gray-700 mb-2">
+                Search Your Business
               </label>
-              <Input
-                id="placeId"
-                type="text"
-                placeholder="Enter your Google Place ID"
-                value={placeId}
-                onChange={(e) => setPlaceId(e.target.value)}
-                className="w-full"
+              <PlacesAutocomplete
+                onPlaceSelected={handlePlaceSelected}
+                value={businessName}
               />
-              <p className="mt-2 text-sm text-gray-500">
-                Don't know your Place ID?{" "}
-                <a
-                  href="https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 underline"
-                >
-                  Find it here
-                </a>
-              </p>
             </div>
 
             {placeId && (
@@ -88,8 +79,8 @@ const Index = () => {
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-gray-900">How to use:</h2>
               <ol className="list-decimal list-inside space-y-2 text-gray-600">
-                <li>Find your Google Place ID using the link above</li>
-                <li>Enter the Place ID in the input field</li>
+                <li>Search for your business in the search box above</li>
+                <li>Select your business from the dropdown</li>
                 <li>Copy the generated review link</li>
                 <li>Share the link with your customers</li>
               </ol>
