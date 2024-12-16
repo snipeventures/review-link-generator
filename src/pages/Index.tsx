@@ -41,7 +41,7 @@ const Index = () => {
             Google Review Link Generator
           </h1>
           <p className="text-lg text-gray-600">
-            Easily generate links for customers to leave a Google review or post for your business
+            Easily generate links for Google reviews or posts for your business
           </p>
           <p className="text-lg text-gray-600">
             Made with ❤️ by <a href="https://postners.com" className="text-blue-500">Postners</a> in Canada
@@ -54,10 +54,12 @@ const Index = () => {
               <label htmlFor="placeSearch" className="block text-sm font-medium text-gray-700 mb-2">
                 Search For Your Business
               </label>
-              <PlacesAutocomplete
-                onPlaceSelected={handlePlaceSelected}
-                value={businessName}
-              />
+              <div className="beam-border rounded-md overflow-hidden">
+                <PlacesAutocomplete
+                  onPlaceSelected={handlePlaceSelected}
+                  value={businessName}
+                />
+              </div>
             </div>
 
             {placeId && (

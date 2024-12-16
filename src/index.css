@@ -99,3 +99,30 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes beam {
+  0% {
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    border-color: rgba(59, 130, 246, 0.8);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+  }
+  100% {
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+}
+
+.beam-border {
+  border: 2px solid transparent;
+  animation: beam 2s infinite;
+  transition: all 0.2s ease;
+}
+
+.beam-border:focus-within {
+  border-color: rgb(59, 130, 246);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+  animation: none;
+}
