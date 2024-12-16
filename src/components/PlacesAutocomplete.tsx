@@ -6,6 +6,12 @@ interface PlacesAutocompleteProps {
   value: string;
 }
 
+declare global {
+  interface Window {
+    google: typeof google;
+  }
+}
+
 const PlacesAutocomplete = ({ onPlaceSelected, value }: PlacesAutocompleteProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
@@ -13,7 +19,7 @@ const PlacesAutocomplete = ({ onPlaceSelected, value }: PlacesAutocompleteProps)
   useEffect(() => {
     if (!inputRef.current) return;
 
-    autocompleteRef.current = new google.maps.places.Autocomplete(inputRef.current, {
+    autocompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current, {
       types: ['establishment'],
     });
 
@@ -26,7 +32,7 @@ const PlacesAutocomplete = ({ onPlaceSelected, value }: PlacesAutocompleteProps)
     });
 
     return () => {
-      google.maps.event.clearInstanceListeners(autocompleteRef.current!);
+      window.google.maps.event.clearInstanceListeners(autocompleteRef.current!);
     };
   }, [onPlaceSelected]);
 
