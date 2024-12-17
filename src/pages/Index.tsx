@@ -9,7 +9,7 @@ const Index = () => {
   const [businessName, setBusinessName] = useState("");
   
   const generateReviewLink = () => {
-    return `https://search.google.com/local/writereview?place_id=${placeId}`;
+    return `https://search.google.com/local/writereview?placeid=${placeId}`;
   };
 
   const copyToClipboard = async () => {
