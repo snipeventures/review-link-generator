@@ -82,7 +82,7 @@ const Index = () => {
             )}
 
             <div className="space-y-4">
-              <h2 className="text-lg font-semibold text-gray-900">How to use:</h2>
+              <h2 className="text-lg font-semibold text-gray-900">Instructions:</h2>
               <ol className="list-decimal list-inside space-y-2 text-gray-600">
                 <li>Search for your business in the search box above</li>
                 <li>Select your business from the dropdown</li>
