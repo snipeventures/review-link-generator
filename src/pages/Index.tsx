@@ -30,50 +30,41 @@ const Index = () => {
     }
   };
 
-  const handlePlaceSelected = (newPlaceId: string, name: string) => {
-  console.log('Setting new place ID:', newPlaceId);
-  setPlaceId(newPlaceId);
-  setBusinessName(name);
-};
-  
-const printQRCode = () => {
-  // Capture the QR code from the original window first
-  const qrCodeContent = document.getElementById('qr-code')?.innerHTML || '';
-  
-  const printWindow = window.open('', '_blank');
-  if (printWindow) {
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Print QR Code</title>
-          <style>
-            body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-            .qr-container { text-align: center; }
-            .business-name { font-size: 18px; font-weight: bold; margin-bottom: 15px; }
-            @media print {
-              body { -webkit-print-color-adjust: exact; }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="qr-container">
-            <div class="business-name">${businessName}</div>
-            ${qrCodeContent}
-          </div>
-          <script>
-            window.onload = function() {
-              setTimeout(function() {
-                window.print();
-              }, 500);
-            }
-          </script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
-    printWindow.focus();
-  }
-};
+  const handlePlaceSelected = (newPlaceId: string) => {
+    console.log('Setting new place ID:', newPlaceId);
+    setPlaceId(newPlaceId);
+  };
+
+  const printQRCode = () => {
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print QR Code</title>
+            <style>
+              body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+              .qr-container { text-align: center; }
+              @media print {
+                body { -webkit-print-color-adjust: exact; }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="qr-container">
+              <div>${businessName}</div>
+              ${document.getElementById('qr-code')?.innerHTML || ''}
+            </div>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+      printWindow.close();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-2xl mx-auto pt-16 px-4">
@@ -97,8 +88,8 @@ const printQRCode = () => {
               </label>
               <div className="beam-border rounded-md overflow-hidden">
                 <PlacesAutocomplete
-                onPlaceSelected={(placeId, name) => handlePlaceSelected(placeId, name)}
-                value={businessName}
+                  onPlaceSelected={handlePlaceSelected}
+                  value={businessName}
                 />
               </div>
             </div>
