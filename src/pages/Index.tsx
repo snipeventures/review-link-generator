@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -30,9 +29,10 @@ const Index = () => {
     }
   };
 
-  const handlePlaceSelected = (newPlaceId: string) => {
+  const handlePlaceSelected = (newPlaceId: string, newBusinessName: string) => {
     console.log('Setting new place ID:', newPlaceId);
     setPlaceId(newPlaceId);
+    setBusinessName(newBusinessName);
   };
 
   const printQRCode = () => {
