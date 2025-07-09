@@ -48,9 +48,16 @@ const PlacesAutocomplete = ({ onPlaceSelected, value }: PlacesAutocompleteProps)
         if (error) {
           console.error('Error fetching places:', error);
           setPredictions([]);
-        } else if (data?.predictions) {
-          setPredictions(data.predictions);
-          setShowDropdown(true);
+        } else {
+          console.log('Places API response:', data);
+          if (data?.predictions) {
+            setPredictions(data.predictions);
+            setShowDropdown(true);
+          } else {
+            console.log('No predictions found in response');
+            setPredictions([]);
+            setShowDropdown(false);
+          }
         }
       } catch (error) {
         console.error('Error calling places function:', error);
