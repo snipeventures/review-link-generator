@@ -1,7 +1,0 @@
-project_id = "ugfsvhceoqgvaoganyoa"
-
-[functions.places-autocomplete]
-verify_jwt = false
-
-[functions.place-details]
-verify_jwt = false
