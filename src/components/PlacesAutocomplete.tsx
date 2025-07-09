@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Input } from "@/components/ui/input";
 
 interface PlacesAutocompleteProps {
-  onPlaceSelected: (placeId: string) => void;
+  onPlaceSelected: (placeId: string, businessName: string) => void;
   value: string;
 }
 
@@ -27,7 +27,7 @@ const PlacesAutocomplete = ({ onPlaceSelected, value }: PlacesAutocompleteProps)
       const place = autocompleteRef.current?.getPlace();
       if (place?.place_id) {
         console.log('Place selected:', place);
-        onPlaceSelected(place.place_id);
+        onPlaceSelected(place.place_id, place.name || '');
       }
     });
 
